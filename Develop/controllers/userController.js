@@ -45,9 +45,7 @@ module.exports = {
         { runValidators: true, new: true }
         );
       if (!user) {
-        return res
-          .status(404)
-          .json({ message: "This user does not currently exist" });
+        return res.status(404).json({ message: "This user does not currently exist" });
       }
       // log data
       res.json(user);

@@ -13,7 +13,7 @@ module.exports = {
 // get a single user
   async getSingleUser(req, res) {
     try {
-        const user = await User.findOne({_id: req.params.userId})
+        const user = await User.findOne({ _id: req.params.userId })
         .select('-__v');
         // check to make sure the user exists
         if(!user) {
@@ -25,7 +25,7 @@ module.exports = {
         res.json(error);
     }
   },
-  // creating a thought
+  // creating a user
   async createUser(req, res) {
     try {
       const newUser = await User.create(req.body);
@@ -34,4 +34,16 @@ module.exports = {
       res.json(error);
     }
   },
+//   delete a user and their thought
+  async deleteUser(req, res) {
+    try {
+        const user = await User.findOneAndRemove({ _id: req.params.userId });
+        if(!user) {
+            return res.status(404).json({message: 'This user does not currently exist'})
+        }
+        res.json({ message: 'the user has been deleted'})
+    } catch (error) {
+        res.json(error);
+    }
+  }
 };

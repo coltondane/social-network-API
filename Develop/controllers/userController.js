@@ -53,7 +53,7 @@ module.exports = {
       res.json(error);
     }
   },
-  //   delete a user and their thought
+  //   delete a user and their thoughts
   async deleteUser(req, res) {
     try {
       // remove user

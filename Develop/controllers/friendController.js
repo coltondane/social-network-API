@@ -3,8 +3,13 @@ const { User } = require("../models");
 module.exports = {
   async addFriend(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId })
-      .select("-__v");
+        // update user with new friendId
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: {friends: req.params.friendId}},
+        { runValidators: true, new: true }
+        );
+
       // check to make sure the user exists
       if (!user) {
         return res
@@ -12,17 +17,7 @@ module.exports = {
           .json({ message: "This user does not currently exist" });
       }
 
-      const friend = await User.findOne({ _id: req.params.friendId })
-      .select("-__v");
-      if(!friend) {
-        return res
-          .status(404)
-          .json({ message: "This friends user does not currently exist" });
-      }
-      console.log(user, friend);
-      // log data
       res.json(user);
-      res.json(friend);
     } catch (error) {
         res.json(error);
     }
@@ -30,8 +25,13 @@ module.exports = {
 //   delete a friend
 async deleteFriend(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId })
-      .select("-__v");
+        // delete friendId from user
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: {friends: req.params.friendId}},
+        { runValidators: true, new: true }
+        );
+
       // check to make sure the user exists
       if (!user) {
         return res
@@ -39,17 +39,7 @@ async deleteFriend(req, res) {
           .json({ message: "This user does not currently exist" });
       }
 
-      const friend = await User.findOne({ _id: req.params.friendId })
-      .select("-__v");
-      if(!friend) {
-        return res
-          .status(404)
-          .json({ message: "This friends user does not currently exist" });
-      }
-      console.log(user, friend);
-      // log data
       res.json(user);
-      res.json(friend);
     } catch (error) {
         res.json(error);
     }

@@ -43,7 +43,14 @@ module.exports = {
     async createThought(req, res) {
         try {
             const newThought = await Thought.create(req.body);
-            res.json(newThought);
+
+            // gather user by entered username and push newThought
+            const user = await User.findOneAndUpdate(
+                { username: req.body.username},
+                { $addToSet: {thoughts: newThought}},
+                { runValidators: true, new: true }
+                );
+            res.json(user);
         } catch (error) {
             res.json(error);
         }

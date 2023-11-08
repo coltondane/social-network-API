@@ -19,7 +19,7 @@ module.exports = {
 
       res.json(user);
     } catch (error) {
-        res.json(error);
+        res.status(500).json(error);
     }
   },
 //   delete a friend
@@ -41,7 +41,7 @@ async deleteFriend(req, res) {
 
       res.json(user);
     } catch (error) {
-        res.json(error);
+        res.status(500).json(error);
     }
   },
 };

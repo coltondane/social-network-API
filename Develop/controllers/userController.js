@@ -7,7 +7,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   },
   // get a single user
@@ -24,7 +24,7 @@ module.exports = {
       // log data
       res.json(user);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   },
   // creating a user
@@ -33,7 +33,7 @@ module.exports = {
       const newUser = await User.create(req.body);
       res.json(newUser);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   },
   //   update user
@@ -50,7 +50,7 @@ module.exports = {
       // log data
       res.json(user);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   },
   //   delete a user and their thoughts
@@ -73,7 +73,7 @@ module.exports = {
       }
       res.json({ message: "the user and their thought(s) have been deleted" });
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   },
 };

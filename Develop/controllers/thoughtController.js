@@ -7,7 +7,7 @@ module.exports = {
             const thought = await Thought.find();
             res.json(thought);
         } catch (error) {
-            res.json(error);
+            res.status(500).json(error);
         }
     },
     // gst a single thought
@@ -19,7 +19,7 @@ module.exports = {
                 return res.json({ message: 'there is no thought that matches that id'})
             }
         } catch (error) {
-            res.json(error);
+            res.status(500).json(error);
         }
     },
     // update thought
@@ -36,7 +36,7 @@ module.exports = {
           // log data
           res.json(thought);
         } catch (error) {
-          res.json(error);
+          res.status(500).json(error);
         }
       },
     // creating a thought
@@ -52,7 +52,7 @@ module.exports = {
                 );
             res.json(user);
         } catch (error) {
-            res.json(error);
+            res.status(500).json(error);
         }
     }
 }

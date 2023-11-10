@@ -18,6 +18,7 @@ module.exports = {
             if(!thought) {
                 return res.json({ message: 'there is no thought that matches that id'})
             }
+            res.json(thought)
         } catch (error) {
             res.status(500).json(error);
         }
@@ -80,6 +81,7 @@ module.exports = {
       },
       // Delete reaction from thought
       async deleteReaction(req, res) {
+        console.log("test");
         try {
           const thought = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -93,7 +95,7 @@ module.exports = {
               .json({ message: 'No reaction found with that ID' });
           }
     
-          res.json(student);
+          res.json(thought);
         } catch (err) {
           res.status(500).json(err);
         }
